@@ -6,47 +6,43 @@
 
 {% block styles %}
 <style type="text/css">
-.field-choice
-{
-display: flex;
-}
+    .field-choice {
+        display: flex;
+    }
 
-.form-check-inline
-{
-display: block;
-margin: 0;
-width: 100%;
-flex-wrap: wrap;
-flex-basis: 0;
-flex-grow: 1;
-text-align: center;
-}
+    .form-check-inline {
+        display: block;
+        margin: 0;
+        width: 100%;
+        flex-wrap: wrap;
+        flex-basis: 0;
+        flex-grow: 1;
+        text-align: center;
+    }
 
-.form-check-label
-{
-display: block;
-width: 100%;
-}
+    .form-check-label {
+        display: block;
+        width: 100%;
+    }
 
-.form-check-inline .form-check-input
-{
-margin-right: 0;
-}
+    .form-check-inline .form-check-input {
+        margin-right: 0;
+    }
 
-.stimulus {
-width:200px;
-height:250px;
-border:3px solid #000;
-font-size:160%;
-text-align:center;
-margin: auto;
-padding: 2vh;
-vertical-align: middle;
-}
+    .stimulus {
+        width: 200px;
+        height: 250px;
+        border: 3px solid #000;
+        font-size: 160%;
+        text-align: center;
+        margin: auto;
+        padding: 2vh;
+        vertical-align: middle;
+    }
 
-.chosen-stimulus {
-border-color: #228B22;
-}
+    .chosen-stimulus {
+        border-color: #228B22;
+    }
 </style>
 
 {% endblock %}
@@ -56,17 +52,24 @@ border-color: #228B22;
 <p style="font-size:200%;text-align:center;"> Please choose one of the options <br> (Press f for left, j for right) </p>
 
 <div class="container">
-  <div class="row">
-<div class="col-6" >
-    <div id="left-stimulus" class="stimulus"> <p style="margin-top:20pt;">Get <b>£{{player.moneyA}}</b> and emit <b>{{player.carbonA}}kg</b> CO2 emissions.</p> </div>
-</div>
-<div class="col-6" >
-    <div id="right-stimulus" class="stimulus"> <p style="margin-top:20pt;"> Get  <b>£{{player.moneyB}}</b>  and emit <b>{{player.carbonB}}kg</b> CO2 emissions.</p></div>
-</div>
-  </div>
+    <div class="row">
+        <div class="col-6">
+            <div id="left-stimulus" class="stimulus">
+                <p style="margin-top:20pt;">Get <b>£{{player.moneyA}}</b> and emit <b>{{player.carbonA}}kg</b> CO2
+                    emissions.</p>
+            </div>
+        </div>
+        <div class="col-6">
+            <div id="right-stimulus" class="stimulus">
+                <p style="margin-top:20pt;"> Get <b>£{{player.moneyB}}</b> and emit <b>{{player.carbonB}}kg</b> CO2
+                    emissions.</p>
+            </div>
+        </div>
+    </div>
 </div>
 
-<p style="text-align:center;"> <button style="display: none;" class="otree-btn-next btn btn-primary next-button otree-next-button">next</button> </p>
+<p style="text-align:center;"> <button style="display: none;"
+        class="otree-btn-next btn btn-primary next-button otree-next-button">next</button> </p>
 
 <input type="hidden" name="choice" />
 
@@ -76,17 +79,17 @@ border-color: #228B22;
 
 <!-- Modal -->
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Release keyboard buttons to progress</h5>
-        </button>
-      </div>
-      <div class="modal-body">
-        Please release all the keys on your keyboard to progress to the next page of the experiment.
-      </div>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Release keyboard buttons to progress</h5>
+                </button>
+            </div>
+            <div class="modal-body">
+                Please release all the keys on your keyboard to progress to the next page of the experiment.
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 
@@ -99,109 +102,163 @@ border-color: #228B22;
 
 {% block scripts %}
 <script type="text/javascript">
-jQuery('.otree-btn-next').hide()
+    jQuery('.otree-btn-next').hide()
 
 
-var keys = new Set();
+    var keys = new Set();
+
+    var choiceListener 
+
+    var reverse = "{{reverse}}"
+
+    choiceListener = {
+
+        KEY_F : 0,
+        KEYDOWN_F : 0, 
+        KEY_J : 0,
+        KEYDOWN_J : 0,
+
+        init(){
+
+            jQuery(document).on('keydown', choiceListener.keyboardInput);
+
+            jQuery('#left-stimulus').on('click', choiceListener.AClick);
+
+            jQuery('#right-stimulus').on('click',choiceListener.BClick);
+
+        },
+
+      AClick() {
+        disable_inputs();
+        var submit_timestamp = Date.now()
+        jQuery('#page_submit').val(submit_timestamp);
+        console.log("left click firing")
+        jQuery('.chosen-stimulus').removeClass('chosen-stimulus');
+        jQuery('[name="choice"]').val("A");
+        jQuery('#left-stimulus').addClass('chosen-stimulus');
+        setTimeout(progress_experiment, 250)
+    },
+
+    BClick() {
+        disable_inputs();
+        var submit_timestamp = Date.now()
+        jQuery('#page_submit').val(submit_timestamp);
+        console.log("right click firing")
+        jQuery('.chosen-stimulus').removeClass('chosen-stimulus');
+        jQuery('[name="choice"]').val("B");
+        jQuery('#right-stimulus').addClass('chosen-stimulus');
+        setTimeout(progress_experiment, 250)
+
+    },
+
+    keyboardInput(event){
+            console.log(event)
+            
+            
+            if (event.which == choiceListener.KEY_F || event.which == choiceListener.KEYDOWN_F) {
+                console.log("key f firing")
+                jQuery('[name="input_keyboard"]').val(1);
+                jQuery('#left-stimulus').trigger("click");
+                disable_inputs();
+
+            }
+            if (event.which == choiceListener.KEY_J || event.which == choiceListener.KEYDOWN_J) {
+                console.log("key j firing")
+                jQuery('[name="input_keyboard"]').val(1);
+                jQuery('#right-stimulus').trigger("click");
+                disable_inputs();
+            }
+    }
+        
+    }
 
 
-function disable_inputs(){
-    jQuery('#right-stimulus').off('click');
-    jQuery('#left-stimulus').off('click');
-    jQuery(document).off('keydown');
-    console.log("disable_inputs firing")
-    jQuery(document).on('keydown', function(event){
-        keys.add(event.which);
-    });
-}
-
-function progress_experiment(){
-
-    if (keys.size > 0)
-    {
-        $('#modal').modal('show');
-
-        jQuery(document).off('keyup').on('keyup', function(event){
-            keys.delete(event.which);
-
-            if(keys.size == 0)
-                {
-                jQuery('.otree-btn-next').click();
-                }
-
+    function disable_inputs() {
+        jQuery('#right-stimulus').off('click');
+        jQuery('#left-stimulus').off('click');
+        jQuery(document).off('keydown');
+        console.log("disable_inputs firing")
+        jQuery(document).on('keydown', function (event) {
+            keys.add(event.which);
         });
     }
-    else
-    {
-        jQuery('.otree-btn-next').click()
+
+    
+
+
+
+    function switchSides() {
+        div1 = $('#left-stimulus');
+        div2 = $('#right-stimulus');
+
+        tdiv1 = div1.clone();
+        tdiv2 = div2.clone();
+
+        div1.replaceWith(tdiv2);
+        div2.replaceWith(tdiv1);
+
+        choiceListener.init();
+        //jQuery(document).on('keydown', console.log("now"), console.log(""), choiceListener.keyboardInput);
+        //jQuery('#left-stimulus').on('click', choiceListener.AClick());
+        //jQuery('#right-stimulus').on('click', choiceListener.BClick());
+        console.log("enable firing")
     }
 
-}
 
-jQuery(document).on('keyup', function(event){
+    function progress_experiment() {
+        if (keys.size > 0) {
+            $('#modal').modal('show');
 
-    keys.delete(event.which);
+            jQuery(document).off('keyup').on('keyup', function (event) {
+                keys.delete(event.which);
 
-});
+                if (keys.size == 0) {
+                    jQuery('.otree-btn-next').click();
+                }
 
-jQuery(document).on('keydown', function(event){
-    keys.add(event.which);
-});
-
-
-jQuery(document).ready(function(){
-    {{if player.page_load == 0}}
-    var load_timestamp = Date.now()
-    jQuery('#page_load').val(load_timestamp);
-    {{ endif}} 
-
-jQuery(document).on('keydown', function(event){
-
-    const KEY_F = 102
-    const KEY_J = 106
-    const KEYDOWN_F = 70
-    const KEYDOWN_J = 74
-    if (event.which == KEY_F || event.which == KEYDOWN_F){
-        console.log("key f firing")
-        jQuery('[name="input_keyboard"]').val(1);
-        jQuery('#left-stimulus').trigger("click");
-        disable_inputs();
-
+            });
+        }
+        else {
+            jQuery('.otree-btn-next').click()
+        }
     }
-    if (event.which == KEY_J || event.which == KEYDOWN_J){
-        console.log("key j firing")
-        jQuery('[name="input_keyboard"]').val(1);
-        jQuery('#right-stimulus').trigger("click");
-        disable_inputs();
 
-    }
-});
+    jQuery(document).on('keyup', function (event) {
+        keys.delete(event.which);
+    });
+
+    jQuery(document).on('keydown', function (event) {
+        keys.add(event.which);
+    });
 
 
-jQuery('#left-stimulus').on('click', function(){
-    disable_inputs();
-    var submit_timestamp = Date.now()
-    jQuery('#page_submit').val(submit_timestamp);
-    console.log("left click firing")
-    jQuery('.chosen-stimulus').removeClass('chosen-stimulus');
-    jQuery('[name="choice"]').val("A");
-    jQuery('#left-stimulus').addClass('chosen-stimulus');
-    setTimeout(progress_experiment, 250)
-});
+    jQuery(document).ready(function () {
 
-jQuery('#right-stimulus').on('click', function(){
-    disable_inputs();
-    var submit_timestamp = Date.now()
-    jQuery('#page_submit').val(submit_timestamp);
-    console.log("right click firing")
-    jQuery('.chosen-stimulus').removeClass('chosen-stimulus');
-    jQuery('[name="choice"]').val("B");
-    jQuery('#right-stimulus').addClass('chosen-stimulus');
-    setTimeout(progress_experiment, 250)
+        {{ if player.page_load == 0}}
+            var load_timestamp = Date.now()
+            jQuery('#page_load').val(load_timestamp);
+        {{ endif }}
 
-});
+        if (reverse == 1) {
+                console.log("yesreverse")
+                switchSides()
+                 choiceListener.KEY_J = 102
+                choiceListener.KEY_F = 106
+                choiceListener.KEYDOWN_J = 70
+                choiceListener.KEYDOWN_F = 74
+                console.log("reversed key", choiceListener.KEY_J)
+            }
 
-});
+        if (reverse == 0){
+                choiceListener.KEY_F = 102
+                choiceListener.KEY_J = 106
+                choiceListener.KEYDOWN_F = 70
+                choiceListener.KEYDOWN_J = 74
+        }
+
+        choiceListener.init();
+
+    });
 
 </script>
 {% endblock %}

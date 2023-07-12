@@ -1,6 +1,7 @@
 from otree.api import *
 import numpy as np
 import random
+from random import choice as random_draw
 
 doc = """
 Read quiz quest 
@@ -38,6 +39,7 @@ def creating_session(subsession: Subsession):
         player.carbonA = current_question['coA']
         player.carbonB = current_question['coB']
         player.stimulusID = current_question['sid']
+        player.reverse = random_draw([0, 1])
 
 
 class Group(BaseGroup):
@@ -56,6 +58,7 @@ class Player(BasePlayer):
     page_submit = models.IntegerField(null=True)
     responsetime = models.IntegerField()
     stimulusID = models.IntegerField()
+    reverse = models.IntegerField()
     @property
     def response_time(player):
         if player.page_submit != None:
@@ -70,6 +73,12 @@ class Player(BasePlayer):
 class choiceTask(Page):
     form_model = 'player'
     form_fields = ["choice","input_keyboard", "page_load", "page_submit"]
+    @staticmethod
+    def vars_for_template(player: Player):
+        return {
+            'reverse': player.reverse
+        }
+    @staticmethod
     def before_next_page(player, timeout_happened):
         if timeout_happened:
             player.timedout = True
