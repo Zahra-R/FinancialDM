@@ -10,16 +10,17 @@ Read quiz quest
 
 def read_csv():
     import csv
-    f = open(__name__ + '/stimuliC.csv', encoding='utf-8-sig')
+
+    f = open(__name__ + '/stimuliU.csv', encoding='utf-8-sig')
     rows = list(csv.DictReader(f))
     return rows
 
 
 class C(BaseConstants):
-    NAME_IN_URL = 'safechoice'
+    NAME_IN_URL = 'riskychoice'
     PLAYERS_PER_GROUP = None
-    QUESTIONS_C = read_csv()
-    NUM_ROUNDS = len(QUESTIONS_C)
+    QUESTIONS_U = read_csv()
+    NUM_ROUNDS = len(QUESTIONS_U)
 
 
 class Subsession(BaseSubsession):
@@ -29,15 +30,24 @@ class Subsession(BaseSubsession):
 def creating_session(subsession: Subsession):
     for player in subsession.get_players():
         if subsession.round_number == 1:
-            shuffledOrderC = np.arange(len(C.QUESTIONS_C)) 
-            random.shuffle(shuffledOrderC)
-            player.participant.shuffledOrderC = shuffledOrderC 
-        current_question = C.QUESTIONS_C[player.participant.shuffledOrderC[subsession.round_number-1]]
-        player.moneyA =  int(current_question['moA'])
-        player.moneyB = int(current_question['moB'])
-        player.carbonA = int(current_question['coA'])
-        player.carbonB = int(current_question['coB'])
-        player.stimulusID = int(current_question['sid'])
+            shuffledOrderU = np.arange(len(C.QUESTIONS_U)) 
+            random.shuffle(shuffledOrderU)
+            player.participant.shuffledOrderU = shuffledOrderU   
+        current_question = C.QUESTIONS_U[player.participant.shuffledOrderU[subsession.round_number-1]]
+        print(current_question)
+        player.moneyA1 = current_question['moA1']
+        player.moneyA2 = current_question['moA2']
+        player.carbonA1 = current_question['coA1']
+        player.carbonA2 = current_question['coA2']
+       
+        player.probB1 = current_question['pB1']
+        player.moneyB1 = current_question['moB1']
+        player.moneyB2 = current_question['moB2']
+        player.carbonB1 = current_question['coB1']
+        player.carbonB2 = current_question['coB2']
+        player.probB1 = current_question['pB1']
+        
+        player.stimulusID = current_question['sid']
         player.reverse = random_draw([0, 1])
 
 
@@ -46,10 +56,16 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    moneyA = models.IntegerField()
-    moneyB = models.IntegerField()
-    carbonA = models.IntegerField()
-    carbonB = models.IntegerField()
+    moneyA1 = models.IntegerField()
+    moneyA2 = models.IntegerField()
+    moneyB1 = models.IntegerField()
+    moneyB2 = models.IntegerField()
+    carbonA1 = models.IntegerField()
+    carbonA2 = models.IntegerField()
+    carbonB1 = models.IntegerField()
+    carbonB2 = models.IntegerField()
+    probA1 = models.FloatField()
+    probB1 = models.FloatField()
     choice = models.StringField()
     input_keyboard = models.IntegerField()
     timedout = models.BooleanField(default=False)
@@ -64,14 +80,18 @@ class Player(BasePlayer):
             return player.page_submit - player.page_load
         
         
+
+
+
+
+
 class choiceTask(Page):
     form_model = 'player'
     form_fields = ["choice","input_keyboard", "page_load", "page_submit"]
     @staticmethod
     def vars_for_template(player: Player):
         return {
-            'reverse': player.reverse,
-            'carbonLeft': player.participant.carbonLeft
+            'reverse': player.reverse
         }
     @staticmethod
     def before_next_page(player, timeout_happened):

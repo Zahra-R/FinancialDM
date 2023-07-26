@@ -2,9 +2,16 @@ from os import environ
 
 SESSION_CONFIGS = [
     dict(
-        name='FinancialDM',
-        app_sequence=['DM_C'],
+        name='FinancialDM_CertainFirst',
+        app_sequence=['Intro', 'DM_C', 'DM_U'],
         num_demo_participants=5,
+        certainFirst = True
+    ),
+    dict(
+        name='FinancialDM_CertainSecond',
+        app_sequence=['Intro', 'DM_U', 'DM_C'],
+        num_demo_participants=5,
+        certainFirst = False
     ),
 ]
 
@@ -18,7 +25,10 @@ SESSION_CONFIG_DEFAULTS = dict(
 )
 
 PARTICIPANT_FIELDS = [
-    'shuffledOrder'
+    'shuffledOrderC',
+    'shuffledOrderU',
+    'carbonLeft', 
+    'outcomeOneTop'
 ]
 SESSION_FIELDS = []
 

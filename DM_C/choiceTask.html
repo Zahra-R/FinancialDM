@@ -30,8 +30,8 @@
     }
 
     .stimulus {
-        width: 200px;
-        height: 250px;
+        width: 320px;
+        height: 300px;
         border: 3px solid #000;
         font-size: 160%;
         text-align: center;
@@ -49,24 +49,90 @@
 
 {% block content %}
 
-<p style="font-size:200%;text-align:center;"> Please choose one of the options <br> (Press f for left, j for right) </p>
+<p style="font-size:200%;text-align:center;"> Please choose one of the options </p>
 
 <div class="container">
     <div class="row">
-        <div class="col-6">
-            <div id="left-stimulus" class="stimulus">
-                <p style="margin-top:20pt;">Get <b>£{{player.moneyA}}</b> and emit <b>{{player.carbonA}}kg</b> CO2
-                    emissions.</p>
+        <div class="col-6 stimulus">
+            <h4> Option A </h4>
+            <div id="left-stimulus">
+            {{if carbonLeft == True}}
+                <table style="margin-top:30px;">
+                    <tbody>
+                        <tr id="leftsidetable" style=" font-weight: bold; background-color: grey; color: white;">
+                            <th> Carbon Emissions </th>
+                            <th> Monetary Bonus </th>
+                        </tr>
+                        <tr>
+                            <td> {{player.carbonA}}lbs. CO2 </td>
+                            <td> £{{player.moneyA}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            {{else}}
+                <table style="margin-top:30px;">
+                    <tbody>
+                        <tr id="leftsidetable" style=" font-weight: bold; background-color: grey; color: white;">
+                            
+                            <th> Monetary Bonus </th>
+                            <th> Carbon Emissions </th>
+                        </tr>
+                        <tr>
+                            
+                            <td> £{{player.moneyA}}</td>
+                            <td> {{player.carbonA}}lbs. CO2 </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            {{endif}}
             </div>
+            
+
+            <p style="margin-top: 30px;"> Press f for Option A </p>
         </div>
-        <div class="col-6">
-            <div id="right-stimulus" class="stimulus">
-                <p style="margin-top:20pt;"> Get <b>£{{player.moneyB}}</b> and emit <b>{{player.carbonB}}kg</b> CO2
-                    emissions.</p>
+
+        <div class="col-6 stimulus">
+            <h4> Option B</h4>
+            <div id="right-stimulus">
+            {{if carbonLeft == True}}
+                <table style="margin-top:30px;">
+                    <tbody>
+                        <tr id="rightsidetable" style=" font-weight: bold; background-color: grey; color: white;">
+                            <th> Carbon Emissions </th>
+                            <th> Monetary Bonus </th>
+                        </tr>
+                        <tr>
+                            <td> {{player.carbonB}}lbs. CO2 </td>
+                            <td> £{{player.moneyB}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            {{else}}
+                <table style="margin-top:30px;">
+                    <tbody>
+                        <tr id="leftsidetable" style=" font-weight: bold; background-color: grey; color: white;">
+                            
+                            <th> Monetary Bonus </th>
+                            <th> Carbon Emissions </th>
+                        </tr>
+                        <tr>
+                            
+                            <td> £{{player.moneyB}}</td>
+                            <td> {{player.carbonB}}lbs. CO2 </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            {{endif}}
             </div>
+            <p style="margin-top: 30px;"> Press j for Option B </p>
         </div>
     </div>
 </div>
+
+<p style="float:right; margin-right: 109px; margin-top: 30px;"> Information: 1 lbs CO2 equals ~ 1.1 miles car drive </p>
 
 <p style="text-align:center;"> <button style="display: none;"
         class="otree-btn-next btn btn-primary next-button otree-next-button">next</button> </p>
@@ -107,69 +173,73 @@
 
     var keys = new Set();
 
-    var choiceListener 
+    var choiceListener
 
     var reverse = "{{reverse}}"
+    var page_load = "{{player.page_load}}"
 
     choiceListener = {
 
-        KEY_F : 0,
-        KEYDOWN_F : 0, 
-        KEY_J : 0,
-        KEYDOWN_J : 0,
+        KEY_F: 0,
+        KEYDOWN_F: 0,
+        KEY_J: 0,
+        KEYDOWN_J: 0,
 
-        init(){
+        init() {
 
             jQuery(document).on('keydown', choiceListener.keyboardInput);
 
-            jQuery('#left-stimulus').on('click', choiceListener.AClick);
+            // no mouseinputs allowed
+            //jQuery('#left-stimulus').on('click', choiceListener.AClick);
 
-            jQuery('#right-stimulus').on('click',choiceListener.BClick);
+            //jQuery('#right-stimulus').on('click',choiceListener.BClick);
 
         },
 
-      AClick() {
-        disable_inputs();
-        var submit_timestamp = Date.now()
-        jQuery('#page_submit').val(submit_timestamp);
-        console.log("left click firing")
-        jQuery('.chosen-stimulus').removeClass('chosen-stimulus');
-        jQuery('[name="choice"]').val("A");
-        jQuery('#left-stimulus').addClass('chosen-stimulus');
-        setTimeout(progress_experiment, 250)
-    },
+        AClick() {
+            disable_inputs();
+            var submit_timestamp = Date.now()
+            jQuery('#page_submit').val(submit_timestamp);
+            console.log("left click firing")
+            jQuery('.chosen-stimulus').removeClass('chosen-stimulus');
+            jQuery('[name="choice"]').val("A");
+            //jQuery('#left-stimulus').addClass('chosen-stimulus');
+            jQuery('#left-stimulus')[0].parentElement.classList.add("chosen-stimulus")
+            setTimeout(progress_experiment, 250)
+        },
 
-    BClick() {
-        disable_inputs();
-        var submit_timestamp = Date.now()
-        jQuery('#page_submit').val(submit_timestamp);
-        console.log("right click firing")
-        jQuery('.chosen-stimulus').removeClass('chosen-stimulus');
-        jQuery('[name="choice"]').val("B");
-        jQuery('#right-stimulus').addClass('chosen-stimulus');
-        setTimeout(progress_experiment, 250)
+        BClick() {
+            disable_inputs();
+            var submit_timestamp = Date.now()
+            jQuery('#page_submit').val(submit_timestamp);
+            console.log("right click firing")
+            jQuery('.chosen-stimulus').removeClass('chosen-stimulus');
+            jQuery('[name="choice"]').val("B");
+            jQuery('#right-stimulus')[0].parentElement.classList.add("chosen-stimulus")
+            //jQuery('#right-stimulus').addClass('chosen-stimulus');
+            setTimeout(progress_experiment, 250)
 
-    },
+        },
 
-    keyboardInput(event){
+        keyboardInput(event) {
             console.log(event)
-            
-            
+
+
             if (event.which == choiceListener.KEY_F || event.which == choiceListener.KEYDOWN_F) {
                 console.log("key f firing")
                 jQuery('[name="input_keyboard"]').val(1);
-                jQuery('#left-stimulus').trigger("click");
+                choiceListener.AClick();
                 disable_inputs();
 
             }
             if (event.which == choiceListener.KEY_J || event.which == choiceListener.KEYDOWN_J) {
                 console.log("key j firing")
                 jQuery('[name="input_keyboard"]').val(1);
-                jQuery('#right-stimulus').trigger("click");
+                choiceListener.BClick();
                 disable_inputs();
             }
-    }
-        
+        }
+
     }
 
 
@@ -183,7 +253,7 @@
         });
     }
 
-    
+
 
 
 
@@ -234,26 +304,26 @@
 
     jQuery(document).ready(function () {
 
-        {{ if player.page_load == 0}}
+        if (page_load == 0) {
             var load_timestamp = Date.now()
             jQuery('#page_load').val(load_timestamp);
-        {{ endif }}
+        }
 
         if (reverse == 1) {
-                console.log("yesreverse")
-                switchSides()
-                 choiceListener.KEY_J = 102
-                choiceListener.KEY_F = 106
-                choiceListener.KEYDOWN_J = 70
-                choiceListener.KEYDOWN_F = 74
-                console.log("reversed key", choiceListener.KEY_J)
-            }
+            console.log("yesreverse")
+            switchSides()
+            choiceListener.KEY_J = 102
+            choiceListener.KEY_F = 106
+            choiceListener.KEYDOWN_J = 70
+            choiceListener.KEYDOWN_F = 74
+            console.log("reversed key", choiceListener.KEY_J)
+        }
 
-        if (reverse == 0){
-                choiceListener.KEY_F = 102
-                choiceListener.KEY_J = 106
-                choiceListener.KEYDOWN_F = 70
-                choiceListener.KEYDOWN_J = 74
+        if (reverse == 0) {
+            choiceListener.KEY_F = 102
+            choiceListener.KEY_J = 106
+            choiceListener.KEYDOWN_F = 70
+            choiceListener.KEYDOWN_J = 74
         }
 
         choiceListener.init();
