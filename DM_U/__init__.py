@@ -35,21 +35,21 @@ def creating_session(subsession: Subsession):
             player.participant.shuffledOrderU = shuffledOrderU   
         current_question = C.QUESTIONS_U[player.participant.shuffledOrderU[subsession.round_number-1]]
         print(current_question)
-        player.moneyA1 = current_question['moA1']
-        player.moneyA2 = current_question['moA2']
-        player.carbonA1 = current_question['coA1']
-        player.carbonA2 = current_question['coA2']
+        player.moneyA1 = int(current_question['moA1'])
+        player.moneyA2 = int(current_question['moA2'])
+        player.carbonA1 = int(current_question['coA1'])
+        player.carbonA2 = int(current_question['coA2'])
         player.probA1 = 100* float(current_question['pA1'])
         player.probA2 = 100 -  (100* float(current_question['pA1']))
         
-        player.moneyB1 = current_question['moB1']
-        player.moneyB2 = current_question['moB2']
-        player.carbonB1 = current_question['coB1']
-        player.carbonB2 = current_question['coB2']
+        player.moneyB1 = int(current_question['moB1'])
+        player.moneyB2 = int(current_question['moB2'])
+        player.carbonB1 = int(current_question['coB1'])
+        player.carbonB2 = int(current_question['coB2'])
         player.probB1 =   100* float(current_question['pB1'])
         player.probB2 = 100 - (100* float(current_question['pB1']))
         
-        player.stimulusID = current_question['sid']
+        player.stimulusID = int(current_question['sid'])
         player.reverse = random_draw([0, 1])
 
 
