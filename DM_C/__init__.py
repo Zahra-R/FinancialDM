@@ -19,7 +19,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'safechoice'
     PLAYERS_PER_GROUP = None
     QUESTIONS_C = read_csv()
-    NUM_ROUNDS = len(QUESTIONS_C)
+    NUM_ROUNDS = 5 # len(QUESTIONS_C)
 
 
 class Subsession(BaseSubsession):

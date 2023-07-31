@@ -39,13 +39,15 @@ def creating_session(subsession: Subsession):
         player.moneyA2 = current_question['moA2']
         player.carbonA1 = current_question['coA1']
         player.carbonA2 = current_question['coA2']
-       
-        player.probB1 = current_question['pB1']
+        player.probA1 = 100* float(current_question['pA1'])
+        player.probA2 = 100 -  (100* float(current_question['pA1']))
+        
         player.moneyB1 = current_question['moB1']
         player.moneyB2 = current_question['moB2']
         player.carbonB1 = current_question['coB1']
         player.carbonB2 = current_question['coB2']
-        player.probB1 = current_question['pB1']
+        player.probB1 =   100* float(current_question['pB1'])
+        player.probB2 = 100 - (100* float(current_question['pB1']))
         
         player.stimulusID = current_question['sid']
         player.reverse = random_draw([0, 1])
@@ -64,8 +66,10 @@ class Player(BasePlayer):
     carbonA2 = models.IntegerField()
     carbonB1 = models.IntegerField()
     carbonB2 = models.IntegerField()
-    probA1 = models.FloatField()
+    probA1 = models.FloatField() 
+    probA2 = models.FloatField()
     probB1 = models.FloatField()
+    probB2 = models.FloatField()
     choice = models.StringField()
     input_keyboard = models.IntegerField()
     timedout = models.BooleanField(default=False)
@@ -81,17 +85,16 @@ class Player(BasePlayer):
         
         
 
-
-
-
-
+       
 class choiceTask(Page):
     form_model = 'player'
     form_fields = ["choice","input_keyboard", "page_load", "page_submit"]
     @staticmethod
     def vars_for_template(player: Player):
         return {
-            'reverse': player.reverse
+            'reverse': player.reverse,
+            'carbonLeft': player.participant.carbonLeft,
+            'outcomeOneTop': player.participant.outcomeOneTop
         }
     @staticmethod
     def before_next_page(player, timeout_happened):
@@ -99,6 +102,8 @@ class choiceTask(Page):
             player.timedout = True
             player.choice = None
         player.responsetime = player.response_time
+
+
 
 class Results(Page):
     @staticmethod

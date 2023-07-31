@@ -30,18 +30,25 @@
     }
 
     .stimulus {
-        width: 320px;
+        width: 380px;
         height: 300px;
         border: 3px solid #000;
-        font-size: 160%;
+        font-size: 130%;
         text-align: center;
         margin: auto;
-        padding: 2vh;
+        padding: 2vw 0vw;
         vertical-align: middle;
     }
 
     .chosen-stimulus {
         border-color: #228B22;
+    }
+
+
+    table {
+        margin-left: auto;
+        margin-right: auto;
+        width: 370px;
     }
 </style>
 
@@ -60,8 +67,8 @@
                 <table style="margin-top:30px;">
                     <tbody>
                         <tr id="leftsidetable" style=" font-weight: bold; background-color: grey; color: white;">
-                            <th> Carbon Emissions </th>
-                            <th> Monetary Bonus </th>
+                            <th> Carbon <br> Emissions </th>
+                            <th> Monetary <br> Bonus </th>
                         </tr>
                         <tr>
                             <td> {{player.carbonA}}lbs. CO2 </td>
@@ -75,8 +82,8 @@
                     <tbody>
                         <tr id="leftsidetable" style=" font-weight: bold; background-color: grey; color: white;">
                             
-                            <th> Monetary Bonus </th>
-                            <th> Carbon Emissions </th>
+                            <th> Monetary <br> Bonus </th>
+                            <th> Carbon <br> Emissions </th>
                         </tr>
                         <tr>
                             
@@ -100,8 +107,8 @@
                 <table style="margin-top:30px;">
                     <tbody>
                         <tr id="rightsidetable" style=" font-weight: bold; background-color: grey; color: white;">
-                            <th> Carbon Emissions </th>
-                            <th> Monetary Bonus </th>
+                            <th> Carbon <br> Emissions </th>
+                            <th> Monetary <br> Bonus </th>
                         </tr>
                         <tr>
                             <td> {{player.carbonB}}lbs. CO2 </td>
@@ -114,8 +121,8 @@
                     <tbody>
                         <tr id="leftsidetable" style=" font-weight: bold; background-color: grey; color: white;">
                             
-                            <th> Monetary Bonus </th>
-                            <th> Carbon Emissions </th>
+                            <th> Monetary <br> Bonus </th>
+                            <th> Carbon <br> Emissions </th>
                         </tr>
                         <tr>
                             
@@ -132,7 +139,7 @@
     </div>
 </div>
 
-<p style="float:right; margin-right: 109px; margin-top: 30px;"> Information: 1 lbs CO2 equals ~ 1.1 miles car drive </p>
+<p style="float:right; margin-right: 61px; margin-top: 30px;"> Information: 1 lbs CO2 equals ~ 1.1 miles car drive </p>
 
 <p style="text-align:center;"> <button style="display: none;"
         class="otree-btn-next btn btn-primary next-button otree-next-button">next</button> </p>
