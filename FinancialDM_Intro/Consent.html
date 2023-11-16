@@ -1,0 +1,61 @@
+{% block title %}
+Informed Consent
+{% endblock %}
+
+{% block styles %}
+   
+{% endblock %}
+
+{% block content %}
+
+<div>
+    <p> Thank you for your interest in this research study conducted by Dr. Sebastian Olschewski, University of Basel. The purpose of this study is to investigate decision making under risk and environmental consequences. In this study you will make repeated decisions between options varying in personal reward and environmental consequences. <b>Note, that there will be trade-offs between own personal reward and real environmental consequences. Please, only take part in this study if you feel comfortable with such choices. </b> </p>
+
+    <p>Besides your payment that you will receive when you complete the study, you will have the chance to win a bonus payment based on your choices made during this study. Please note that <b>you can win any additional bonus payment only if you answer at least 3 of the 4 clearly marked comprehension questions correctly.</b> So please pay careful attention to all information presented to you, and please remove any distractors such as other websites or smartphones while conducting the study. This is important for our research, but can also matter for your bonus. 
+    </p>
+
+    <p>Participation in this study is voluntary. You may refuse to participate or withdraw from the study at any time without penalty. If you decide to withdraw from the study, your data will be removed from the study and no further information will be collected from you. However, in this case we will also not be able to pay you any compensation. </p>
+
+    <p>The study will not cause any unpleasant experiences or risks to your health or well-being.</p>
+
+
+    <p>Your privacy is important to us. All information collected during the study will be kept confidential and anonymous. The data collected will be stored securely on password-protected computers, and access to the data will be restricted to the research team. Only aggregate data will be reported, and no individual participant will be identifiable in any publications or reports resulting from the study. For future researchers, the anonymous data will be stored on a public database, e.g. Open Science Framework (OSF) to allow for future analyses. </p>
+
+    <p>If you have any questions or concerns about the study, please contact the researcher, Dr. Sebastian Olschewski, Sebastian.olschewski@unibas.ch. By clicking the "I agree" button, you acknowledge that you have read and understood this consent form and agree to participate in this study. If you do not agree with this informed consent and if you do not want to participate in this study anymore, please just close this browser window. </p>
+
+
+    <table>
+        <tr>
+            <td> <input name="consent1" id="id_consent1" type="checkbox" onchange="checkNext()" /> </td>
+            <td> &nbsp;&nbsp;&nbsp;I read and understood the stated terms. I had enough time to make a decision. </td>
+        </tr>
+        <tr>
+            <td><input name="consent2" id="id_consent2" type="checkbox"  onchange="checkNext()" /> </td>
+            <td> &nbsp;&nbsp;&nbsp;Herewith, I consent to participate in this study. </td>
+        </tr>
+    </table>
+</div>
+<button style="float: right; margin-top: 2vh;" class="otree-btn-next btn btn-primary"  disabled id="consent-next">I agree</button>
+  
+{% endblock %}
+
+{{ formfield_errors 'consent1' }}
+{{ formfield_errors 'consent2' }}
+
+
+
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+    function checkNext() {
+        if ($("#id_consent1")[0].checked && $("#id_consent2")[0].checked) {
+            $("#consent-next").attr("disabled", false)
+        } else {
+            $("#consent-next").attr("disabled", true)
+        }
+    }
+
+
+</script>
+
+{% endblock %}

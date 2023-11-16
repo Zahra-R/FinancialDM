@@ -1,0 +1,67 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block styles %}
+{% endblock %}
+
+{% block title %}
+Thank you for your participation.
+{% endblock %}
+
+{% block content %}
+
+
+
+<p> You have finished the study.</p>
+
+{{if sum_correct < 3}} <p> Unfortunately, you answered more than one of the comprehension questions incorrectly.
+    Therefore, you will not receive a bonus payment. </p>
+    {{else}}
+    <p> <b> You will receive a bonus payment.</b> </p>
+
+
+    <p> The randomly drawn round was round {{drawn_round | to0}} from part {{drawn_block | to0}} of the game.</p>
+
+    <p> In this round, you chose option {{relevant_round_choice}}.</p>
+
+    <p> With this option, your monetary bonus was {{outcome_bonus_points}} study dollar. This will be converted to
+        {{outcome_bonus_pound}}£ and paid to you as a bonus.
+    </p>
+    <p> With this option, your carbon emissions were {{outcome_carbon}}lbs CO2. The carbon emissions will be realized
+        through carbon emission certificates.
+    </p>
+
+    {{endif}}
+
+    <p> Below, you can find more information on the background of the study.</p>
+
+    <p>
+        In this study we examine how people make trade-offs between own monetary payoffs and carbon emissions. Moreover,
+        we examine how the implementation of risk (i.e., outcomes are based on different probabilities) can affect these
+        trade-off choices.
+    </p>
+
+    <p>Recall that we will buy carbon emission certificates in accordance with your choice that was selected for real
+        consequences. Thus, your decision affects the amount of CO2 certificates we will buy and thus the extent to
+        which CO2 certificates will be taken from the market. With less certificates on the market, less carbon can be
+        emitted in total. </p>
+
+    <p>If you have any questions or concerns about the study, in particular if you feel uncomfortable with the decisions
+        you made, please contact the main researcher, Dr. Sebastian Olschewski, Sebastian.olschewski@unibas.ch.</p>
+
+    <p>Otherwise, you can now follow the link back to prolific to validate your participation:
+
+
+        <br>
+
+        <button class="btn btn-primary btn-large reps" style="margin-top:3vh;" type="button"
+            onclick="window.location.href='https://app.prolific.co/submissions/complete?cc=CFZPI952'"> Click here to
+            Finish</button>
+
+
+    </p>
+
+    
+
+
+    {% endblock %}

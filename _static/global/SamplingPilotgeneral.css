@@ -1,0 +1,325 @@
+
+.otree-body{
+  max-width: 950px;
+  font-size: 1.1rem;
+  text-align: justify;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.choiceButton {
+    height: 15vh;
+    max-height: 140pt;
+    border-radius: 15pt;
+    width: 30vw;
+    max-width: 200pt;
+    text-decoration: none;
+    color: #fff;
+    background-color: #26a69a;
+    text-align: center;
+    -webkit-transition: background-color .2s ease-out;
+    transition: background-color .2s ease-out;
+    cursor: pointer;
+    vertical-align: middle;
+    -webkit-tap-highlight-color: transparent;
+    display: inline-block;
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-size: larger;
+    font-style: italic;
+    .transform {
+        -webkit-transition: all 5s ease;  
+        -moz-transition: all 5s ease;  
+        -o-transition: all 5s ease;  
+        -ms-transition: all 5s ease;  
+        transition: all 5s ease;
+      }
+}
+
+.choiceButton:disabled{
+    cursor: auto;
+}
+
+.choiceButton span {
+    font-style: normal;
+    font-size: xx-large;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+.choiceButton:hover:enabled {
+    background-color: #2bbbad;
+}
+
+
+/* Animate the boxes after clicking on them with text appearing */
+#abtn, #bbtn {
+    -webkit-transition: all 1s ease;  
+    -moz-transition: all 1s ease;  
+    -o-transition: all 1s ease;  
+    -ms-transition: all 1s ease;  
+    transition: all 1s ease;
+}
+
+
+.transform-active {
+    background-color: #45CEE0;
+    width: 500px;
+  }
+
+.transform-active-frame {
+    height: auto;
+    max-width: 400px;
+    max-width: 60vw;
+    padding: 1vw;
+    max-height: 80vh;
+    min-height: 200px;
+}
+
+
+#show_statement {
+    text-decoration: none;
+    color: #fff;
+    background-color: red;
+    text-align: center;
+    border-radius: 7pt;
+    border-radius: 7pt;
+    padding: 10pt 30pt;
+    font-size: x-large;
+}
+  
+/* Animate the range sliders after clicking on them (appearing and opacity changes */
+#rate_statement {
+    -webkit-transition: all 4s ease;  
+    -moz-transition: all 4s ease;  
+    -o-transition: all 4s ease;  
+    -ms-transition: all 4s ease;  
+    transition: all 4s ease;
+}
+
+
+.transform-slidervisible {
+    opacity: 1 !important;
+}
+
+
+#caption1, #_otree-title {
+    padding-top: 0pt;
+}
+
+
+
+
+
+
+.slidecontainer {
+    margin-top: 4vh;
+    margin-bottom: 4vh;
+}
+
+.slidecontainer > p {
+    margin-bottom: -5pt;
+    text-align: center;
+}
+
+.rangelabel {
+    text-align: center;
+}
+
+.otree-btn-next {
+    float: right;
+}
+
+#nextst, .otree-btn-next{
+    background-color: #26a69a;
+    text-transform: uppercase;
+    border-radius: 0%;
+    border-color: #26a69a;
+    color: white;
+    box-shadow: 1pt 1pt 4pt 1pt slategray;
+}
+
+#nextst:hover:enabled, .otree-btn-next:hover {
+    letter-spacing: 1pt;
+    box-shadow: 1pt 1pt 4pt 2pt slategray;
+    background-color: #26a69a;
+    border-color: #26a69a;
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+    color: #fff;
+    background-color: #2bbbad;
+    border-color: #2bbbad;
+}
+
+
+
+/* this is for the radio widget input selects */
+
+.form-check-input {
+    width: 2em !important; 
+    height: 2em !important;
+}
+  
+  .form-check-input:checked {
+    background-color: #A5D7D2 !important; 
+    border-color: #46505A;
+}
+
+
+@media only screen and (max-width: 600px) {
+ 
+    .form-check-input {
+     width: 1.1em !important; 
+     height: 1.1em !important;
+    }
+}
+
+@media only screen and (min-width: 1155px) {
+ .radiotable {
+    width:115% !important;
+ }
+ .next-btn .main {
+  width: 115% !important;
+}
+ .otree-body{
+  padding-left: 0pt !important;
+ }
+}
+
+@media only screen and (max-width: 950px) {
+  .page-header {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-top: 0px;
+}
+}
+
+
+/* Radio table for cc concern and others */
+.radio-column{
+    width:5%;
+    min-width:43px;
+    max-width:80px;
+  }
+
+
+/* input on consent form page */
+input.larger {
+    width: 3vw;
+    height: 3vw;
+  
+    max-width: 25px;
+    max-height: 25px;
+  
+    min-width: 15px;
+    min-height: 15px;
+    margin-right: 2vw
+  }
+
+  
+
+/* this is for the range sliders */
+
+input[type=range] {
+    height: 39px;
+    -webkit-appearance: none;
+    margin: 10px 0;
+    width: 100%;
+  }
+  input[type=range]:focus {
+    outline: none;
+  }
+  input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 12px;
+    cursor: pointer;
+    animate: 1.2s;
+    box-shadow: 2px 2px 4px #666C75;
+    background: #86C4E3;
+    border-radius: 7px;
+    border: 0px solid #000000;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    box-shadow: 2px 2px 4px #646269;
+    border: 1px solid #FFFAF7;
+    height: 30px;
+    width: 25px;
+    border-radius: 16px;
+    background: #1D8076;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -9.5px;
+  }
+  input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #86C4E3;
+  }
+  input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 12px;
+    cursor: pointer;
+    animate: 1.2s;
+    box-shadow: 2px 2px 4px #666C75;
+    background: #86C4E3;
+    border-radius: 7px;
+    border: 0px solid #000000;
+  }
+  input[type=range]::-moz-range-thumb {
+    box-shadow: 2px 2px 4px #646269;
+    border: 1px solid #FFFAF7;
+    height: 30px;
+    width: 25px;
+    border-radius: 16px;
+    background: #1D8076;
+    cursor: pointer;
+  }
+  input[type=range]::-ms-track {
+    width: 100%;
+    height: 12px;
+    cursor: pointer;
+    animate: 1.2s;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+  }
+  input[type=range]::-ms-fill-lower {
+    background: #86C4E3;
+    border: 0px solid #000000;
+    border-radius: 14px;
+    box-shadow: 2px 2px 4px #666C75;
+  }
+  input[type=range]::-ms-fill-upper {
+    background: #86C4E3;
+    border: 0px solid #000000;
+    border-radius: 14px;
+    box-shadow: 2px 2px 4px #666C75;
+  }
+  input[type=range]::-ms-thumb {
+    margin-top: 1px;
+    box-shadow: 2px 2px 4px #646269;
+    border: 1px solid #FFFAF7;
+    height: 30px;
+    width: 25px;
+    border-radius: 16px;
+    background: #1D8076;
+    cursor: pointer;
+  }
+  input[type=range]:focus::-ms-fill-lower {
+    background: #86C4E3;
+  }
+  input[type=range]:focus::-ms-fill-upper {
+    background: #86C4E3;
+  }
+
+  .untouched::-webkit-slider-thumb  {
+    background: #666C75 !important; 
+  }
+  
+  .untouched::-ms-thumb {
+    background: #666C75 !important; 
+  }
+  
+  .untouched::-moz-range-thumb{
+    background: #666C75 !important; 
+  } 

@@ -1,0 +1,211 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block styles %}
+<style type="text/css">
+    .field-choice {
+        display: flex;
+    }
+
+    .form-check-inline {
+        display: block;
+        margin: 0;
+        width: 100%;
+        flex-wrap: wrap;
+        flex-basis: 0;
+        flex-grow: 1;
+        text-align: center;
+    }
+
+    .form-check-label {
+        display: block;
+        width: 100%;
+    }
+
+    .form-check-inline .form-check-input {
+        margin-right: 0;
+    }
+
+    .stimulus {
+        width: 380px;
+        height: 300px;
+        border: 3px solid #000;
+        font-size: 130%;
+        text-align: center;
+        margin: auto;
+        padding: 2vh 0vw;
+        vertical-align: middle;
+    }
+
+    .chosen-stimulus {
+        border-color: #228B22;
+    }
+
+
+    table {
+        margin-left: auto;
+        margin-right: auto;
+        width: 370px;
+    }
+
+    .animated-progress {
+  width: 300px;
+  height: 30px;
+  border-radius: 5px;
+  margin: 20px 10px;
+  border: 1px solid grey;
+  overflow: hidden;
+  position: relative;
+}
+
+#color-progress {
+  height: 100%;
+  display: block;
+  width: 0;
+  line-height: 30px;
+  position: absolute;
+  text-align: end;
+  padding-right: 5px;
+}
+
+#color-progress {
+  background-color: lightblue;
+}
+</style>
+
+{% endblock %}
+
+{% block title %}
+Your task
+{% endblock %}
+
+{% block content %}
+
+
+
+<p style="padding-bottom: 20pt;"> In this block your task is to decide between two options that have consequences for your monetary bonus and the environment, which both are risky. This means that for each option, there are two events that can occur with displayed probabilities and that differ in their consequences for your monetary bonus and the environment. 
+</p>
+<p>
+    Here you see an examplary decision screen. 
+</p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 stimulus">
+            <h4> Option A </h4>
+            <div id="left-stimulus">
+            {{if carbonLeft == True}}
+                <table style="margin-top:30px;">
+                    <tbody>
+                        <tr id="leftsidetable" style=" font-weight: bold; background-color: grey; color: white;">
+                            <th> Probability </th>
+                            <th> Carbon Emissions </th>
+                            <th> Monetary Bonus </th>
+                        </tr>
+                        <tr>
+                            <td> 30%</td>
+                            <td> 45 lbs. CO2 </td>
+                            <td> 40$</td>
+                        </tr>
+                        <tr class="row-secondary-outcomeA">
+                            <td> 70% </td>
+                            <td> 35 lbs. CO2 </td>
+                            <td> 30$</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            {{else}}
+                <table style="margin-top:30px;">
+                    <tbody>
+                        <tr id="leftsidetable" style=" font-weight: bold; background-color: grey; color: white;">
+                            <th> Probability</th>
+                            <th> Monetary Bonus </th>
+                            <th> Carbon Emissions </th>
+                        </tr>
+                        <tr>
+                            <td> 30%</td>
+                            <td> 40$</td>
+                            <td> 45 lbs. CO2 </td>
+                        </tr>
+                        <tr class="row-secondary-outcomeA">
+                            <td> 70% </td>
+                            <td> 30$</td>
+                            <td> 35 lbs. CO2 </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            {{endif}}
+            </div>
+            
+
+            <p style="margin-top: 30px;"> Press <i>f</i> for Option A </p>
+        </div>
+
+        <div class="col-6 stimulus">
+            <h4> Option B</h4>
+            <div id="right-stimulus">
+            {{if carbonLeft == True}}
+                <table style="margin-top:30px;">
+                    <tbody>
+                        <tr id="rightsidetable" style=" font-weight: bold; background-color: grey; color: white;">
+                            <th> Probability</th>
+                            <th> Carbon Emissions </th>
+                            <th> Monetary Bonus </th>
+                        </tr>
+                        <tr>
+                            <td>50%</td>
+                            <td> 20 lbs. CO2 </td>
+                            <td> 15$</td>
+                        </tr>
+                        <tr class="row-secondary-outcomeB">
+                            <td>50% </td>
+                            <td> 50 lbs. CO2 </td>
+                            <td> 55$</td>
+                        </tr>
+                    </tbody>
+                </table>
+            {{else}}
+                <table style="margin-top:30px;">
+                    <tbody>
+                        <tr id="leftsidetable" style=" font-weight: bold; background-color: grey; color: white;">
+                            <th> Probability</th>
+                            <th> Monetary Bonus </th>
+                            <th> Carbon Emissions </th>
+                        </tr>
+                        <tr>
+                            <td>50%</td>
+                            <td> 15$</td>
+                            <td> 20 lbs. CO2 </td>
+                        </tr>
+                        <tr class="row-secondary-outcomeB">
+                            <td>50% </td>
+                            <td> 55$</td>
+                            <td> 50 lbs. CO2 </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            {{endif}}
+            </div>
+            <p style="margin-top: 30px;"> Press <i>j</i> for Option B </p>
+        </div>
+    </div>
+</div>
+
+<p style="padding-top: 20pt;"> You see the two options with their respective risky amounts of carbon emissions and your monetary bonus. You see the probabilities of occurrence of the two events on the left of each option. Note that the probabilities of occurrence differ between the two options. </p>
+
+<p> To better understand the consequences, take into account that 1 lbs. CO2 corresponds to approximately 1.1 miles of a car drive with an average car. </p>
+
+<p> Your monetary bonus is displayed in study dollars and will be exchanged to British pounds according to £1 equals study $25.</p>
+
+<p> To choose an option use your keyboard and press <i>f</i> for Option A and <i>j</i> for Option B.  </p>
+
+<p> <b> Comprehension Questions </b></p>
+
+{{ formfields }}
+
+
+<button style="float: right; margin-top: 2vh;" class="otree-btn-next btn btn-primary" id="consent-next">Next</button>
+{% endblock %}

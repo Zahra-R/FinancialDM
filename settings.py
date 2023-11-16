@@ -1,18 +1,18 @@
 from os import environ
 
+
 SESSION_CONFIGS = [
+    
+    ### FINANCIAL DECISION MAKING
+    
     dict(
-        name='FinancialDM_CertainFirst',
-        app_sequence=['Intro', 'DM_C', 'DM_U'],
-        num_demo_participants=5,
-        certainFirst = True
+        name='FinancialDM_united',
+        app_sequence=['FinancialDM_Intro', 'FinancialDM_united'],
+        num_demo_participants=5
     ),
-    dict(
-        name='FinancialDM_CertainSecond',
-        app_sequence=['Intro', 'DM_U', 'DM_C'],
-        num_demo_participants=5,
-        certainFirst = False
-    ),
+
+     
+
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
@@ -25,25 +25,53 @@ SESSION_CONFIG_DEFAULTS = dict(
 )
 
 PARTICIPANT_FIELDS = [
+
+    ### FINANCIAL DECISION MAKING
     'shuffledOrderC',
     'shuffledOrderU',
     'carbonLeft', 
-    'outcomeOneTop'
+    'certainFirst',
+
+    'comprehension_C1_correct' ,
+    'comprehension_C2_correct' ,
+    'comprehension_U1_correct',
+    'comprehension_U2_correct',
+
+    ### CarbonTask Nina
+    'task_rounds'
+
 ]
-SESSION_FIELDS = []
+
+
+SESSION_FIELDS = [
+]
 
 # ISO-639 code
 # for example: de, fr, ja, ko, zh-hans
 LANGUAGE_CODE = 'en'
 
 # e.g. EUR, GBP, CNY, JPY
-REAL_WORLD_CURRENCY_CODE = 'USD'
-USE_POINTS = True
+REAL_WORLD_CURRENCY_CODE = 'GBP'
+USE_POINTS = False
+
+ROOMS = [
+    dict(
+        name='econ101',
+        display_name='Econ 101 class',
+        participant_label_file='_rooms/econ101.txt',
+    ),
+    dict(name='live_demo', display_name='Room for live demo (no participant labels)'),
+]
 
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable
 ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
 
-DEMO_PAGE_INTRO_HTML = """ """
+DEMO_PAGE_INTRO_HTML = """
+Here are some oTree games.
+"""
 
-SECRET_KEY = '9519481929595'
+
+SECRET_KEY = '3153268574945'
+
+INSTALLED_APPS = ['otree']
