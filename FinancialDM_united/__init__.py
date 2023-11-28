@@ -418,6 +418,7 @@ class Results(Page):
     def vars_for_template(player: Player):
         sum_correct = player.participant.comprehension_C1_correct + player.participant.comprehension_C2_correct +player.participant.comprehension_U1_correct + player.participant.comprehension_U2_correct
         drawn_round = player.in_round(1).drawn_round
+        drawn_round_display = drawn_round
         drawn_game= "certain"
         if drawn_round > int(C.NUM_ROUNDS/2) and player.participant.certainFirst == True:
             drawn_game = "risky"
