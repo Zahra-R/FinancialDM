@@ -318,7 +318,7 @@ class choiceTaskU(Page):
         print(player.mod_round_number)
         print(player.participant.certainFirst)
         player.carbonLeft = player.participant.carbonLeft
-        player.prolific_id = player.participant.participant_label
+        player.prolific_id = player.participant.label
         return {
             'reverse': player.OptionARight,
             'carbonLeft': player.participant.carbonLeft,
