@@ -55,4 +55,4 @@ class Introduction2(Page):
     form_model = 'player'
  
  
-page_sequence = [Consent, Introduction,  Introduction2]
+page_sequence = [Consent, Introduction, Introduction2]

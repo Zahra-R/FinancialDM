@@ -191,7 +191,7 @@ class Player(BasePlayer):
     ccc15 = make_field('The impacts of climate change are unpredictable; thus, my climate-friendly behavior is futile.')
     ccc16 = make_field('Climate protection needlessly impedes economic growth.')
 
-
+    prolific_id = models.StringField()
 
     # @property
     # def response_time(player):
@@ -287,6 +287,7 @@ class choiceTaskC(Page):
         print(player.mod_round_number)
         print(player.participant.certainFirst)
         player.carbonLeft = player.participant.carbonLeft
+        player.prolific_id = player.participant.participant_label
         return {
             'reverse': player.OptionARight,
             'carbonLeft': player.participant.carbonLeft,
@@ -317,6 +318,7 @@ class choiceTaskU(Page):
         print(player.mod_round_number)
         print(player.participant.certainFirst)
         player.carbonLeft = player.participant.carbonLeft
+        player.prolific_id = player.participant.participant_label
         return {
             'reverse': player.OptionARight,
             'carbonLeft': player.participant.carbonLeft,
