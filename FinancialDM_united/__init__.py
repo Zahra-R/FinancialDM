@@ -18,7 +18,6 @@ def read_csvC():
 def read_csvU():
     f = open(__name__ + '/stimuliU.csv', encoding='utf-8-sig')
     rows = list(csv.DictReader(f))
-    print("new print with rows")
     return rows
 
 
@@ -44,35 +43,24 @@ def creating_session(subsession: Subsession):
             ######### this is for the bonus payoff later on ########
             # 1 to 4 is practice ; 5 to 84 is part 1, 85 to 88 is practice, 89 to 164 is part 2) 
             seqa = range(5,85)
-            print("seqa", seqa)
             seqb = range(89,165)
             seq = np.concatenate((seqa, seqb), axis = None)
-            print("seq", seq)
             # this next line needs to be removed, was only for practice purposes
             #seq = [1,2,3,4]
             player.drawn_round = int(draw_random_number(seq))
             #############################################
             shuffledOrderC = np.arange(start = 4, stop=  len(C.QUESTIONS_C), step = 1) 
             random.shuffle(shuffledOrderC)
-            print(shuffledOrderC)
             player.participant.shuffledOrderC = np.concatenate((range(0,4), shuffledOrderC), axis = None )
-            print("this should be the entire sequence of trial ids ", player.participant.shuffledOrderC)
-            print(len(player.participant.shuffledOrderC))
             shuffledOrderU = np.arange(start= 4, stop = len(C.QUESTIONS_U) , step = 1) 
             random.shuffle(shuffledOrderU)
-            print(shuffledOrderU)
             player.participant.shuffledOrderU = np.concatenate((range(0,4), shuffledOrderU), axis = None)
-            print("this should be the entire sequence of trial ids ", player.participant.shuffledOrderU)
-            print(len(player.participant.shuffledOrderC))
-            print("this is num rounds", C.NUM_ROUNDS)
         if player.participant.certainFirst == False:
             player.mod_round_number = (( subsession.round_number + int(C.NUM_ROUNDS/2) ) % C.NUM_ROUNDS)
             if player.mod_round_number == 0:
                 player.mod_round_number = C.NUM_ROUNDS
         else: 
             player.mod_round_number = subsession.round_number
-        print("subsession round number ", subsession.round_number-1)
-        print("mod rd", player.mod_round_number)
         if player.mod_round_number <= int(C.NUM_ROUNDS/2): 
             #print("first if current Question index", player.participant.shuffledOrderC[((subsession.round_number) % (int(C.NUM_ROUNDS/2)))-1], subsession.round_number)
             current_questionC = C.QUESTIONS_C[player.participant.shuffledOrderC[((subsession.round_number) % (int(C.NUM_ROUNDS/2)))-1]]
@@ -80,7 +68,7 @@ def creating_session(subsession: Subsession):
             player.moneyB = int(current_questionC['moB'])
             player.carbonA = int(current_questionC['coA'])
             player.carbonB = int(current_questionC['coB'])
-            player.stimulusIDC = int(current_questionC['sid'])
+            player.stimulusIDC = int(current_questionC['sebsid'])
             player.OptionARight = draw_random_number([0, 1])
             player.practice = current_questionC['practice']
         else:
@@ -90,22 +78,22 @@ def creating_session(subsession: Subsession):
             player.moneyA2 = int(current_questionU['moA2'])
             player.carbonA1 = int(current_questionU['coA1'])
             player.carbonA2 = int(current_questionU['coA2'])
-            player.probA1 = 100* float(current_questionU['pA1'])
-            player.probA2 = 100* float(current_questionU['pA2'])
+            player.probA1 = round(100* float(current_questionU['pA1']),1)
+            player.probA2 = round(100* float(current_questionU['pA2']),1)
             #player.probA2 = 100 -  (100* float(current_questionU['pA1']))
             
             player.moneyB1 = int(current_questionU['moB1'])
             player.moneyB2 = int(current_questionU['moB2'])
             player.carbonB1 = int(current_questionU['coB1'])
             player.carbonB2 = int(current_questionU['coB2'])
-            player.probB1 =   100* float(current_questionU['pB1'])
-            player.probB2 =   100* float(current_questionU['pB2'])
+            player.probB1 =   round(100* float(current_questionU['pB1']),1)
+            player.probB2 =  round(100* float(current_questionU['pB2']),1)
             #player.probB2 = 100 - (100* float(current_questionU['pB1']))
             player.OptionAoutcomeOneTop = draw_random_number([True, False])
             player.OptionBoutcomeOneTop = draw_random_number([True, False])
             player.practice = current_questionU['practice']
             
-            player.stimulusIDU = int(current_questionU['sid'])
+            player.stimulusIDU = int(current_questionU['sebsid'])
             player.OptionARight = draw_random_number([0, 1])
 
 
@@ -283,9 +271,6 @@ class choiceTaskC(Page):
     form_fields = ["choice","input_keyboard", "page_load", "page_submit", "newResponseTime"]
     @staticmethod
     def vars_for_template(player: Player):
-        print("--------------------------HIiiiiiiii------------")
-        print(player.mod_round_number)
-        print(player.participant.certainFirst)
         player.carbonLeft = player.participant.carbonLeft
         player.prolific_id = player.participant.label
         return {
@@ -298,7 +283,6 @@ class choiceTaskC(Page):
         }
     @staticmethod
     def before_next_page(player, timeout_happened):
-        print("made it till here")
         if player.page_submit != None:
             player.responsetime = int(player.page_submit) - int(player.page_load)
     @staticmethod
@@ -314,9 +298,6 @@ class choiceTaskU(Page):
     form_fields = ["choice","input_keyboard", "page_load", "page_submit", "newResponseTime"]
     @staticmethod
     def vars_for_template(player: Player):
-        print("--------------------------Uuuuuuuuuncertain------------")
-        print(player.mod_round_number)
-        print(player.participant.certainFirst)
         player.carbonLeft = player.participant.carbonLeft
         player.prolific_id = player.participant.label
         return {
@@ -331,7 +312,6 @@ class choiceTaskU(Page):
         }
     @staticmethod
     def before_next_page(player, timeout_happened):
-        print("made it till here")
         if player.page_submit != None:
             player.responsetime = int(player.page_submit) - int(player.page_load)
     @staticmethod
